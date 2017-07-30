@@ -20,7 +20,7 @@ var menuState = {
         placeholdertext = game.add.text(50,50,"TURTLE GAMES \nclick button to start", style);
         var style_sm = { font: "bold 24px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" };
 
-        instructionstext = game.add.text(50, 250, 
+        instructionstext = game.add.text(50, 210, 
                                          "- mash arrow keys to move\n- collect battery swaps and charges to keep your power high\n- watch out for mine turtles", 
                                          style_sm)
     }
