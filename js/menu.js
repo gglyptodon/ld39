@@ -1,5 +1,5 @@
 var menuState = {
-    timeToWait: 0.1*60,
+    timeToWait: 0.1*1,
     isStillWaiting: function() {
         console.log("check waiting", localStorage.getItem("turtlegames_localstoragetimer"));
         if (localStorage.getItem("turtlegames_localstoragetimer") > 0 ) {
@@ -14,15 +14,8 @@ var menuState = {
     },
     startup: function(){
 
-        if (! this.isStillWaiting()){
-            localStorage.setItem("turtlegames_localstoragetimer",this.timeToWait);
-            game.state.start('play');
 
-        }
-        else{
-
-            game.state.start('redo');
-        }
+        game.state.start('play');
     },
 
     create: function(){

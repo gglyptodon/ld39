@@ -11,6 +11,34 @@ var playState = {
     create: function(){
         background = game.add.tileSprite(0, 0, 800, 600, 'backgroundplay');
 
+        //  The platforms group contains the ground and the 2 ledges we can jump on
+        platforms = game.add.group();
+    
+        //  We will enable physics for any object that is created in this group
+        platforms.enableBody = true;
+        // Here we create the ground.
+        var ground = platforms.create(0, game.world.height - 64, 'ground');
+    
+        //  Scale to be much wider, twice as tall
+        ground.scale.setTo(10, 2);
+    
+        //  This stops it from falling away when you jump on it
+        ground.body.immovable = true;
+
+
+        player = game.add.sprite(game.world.width / 2, game.world.height - ground.body.height *2.1, 'tortuga_small');
+        //  We need to enable physics on the player
+        game.physics.arcade.enable(player);
+    
+        //  Player physics properties. Give the little guy a slight bounce.
+        player.body.bounce.y = 0.2;
+        player.body.gravity.y = 300;
+        player.body.collideWorldBounds = true;
+    
+        //  Our two animations, walking left and right.
+        player.animations.add('left', [0, 1], 10, true);
+        player.animations.add('right', [2, 3], 10, true);
+
         var style = { font: "bold 16px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" };
         // headers
         var header_y = 50;
@@ -23,21 +51,10 @@ var playState = {
 
         game.add.plugin(PhaserInput.Plugin);
 
-        for (i = 0; i < this.numInputs; i++) {
-            var j = i+1;
-            var spacing = 90;
-            this.ingredientTxt[i] = game.add.inputField(10, spacing*j);
-            // button sprite frame numbers on end are over, out, down
-            this.ingredientBtnCW[i] = game.add.button(game.world.centerX/2, spacing*j, 'cw', actionOnClick, this, 2, 0, 0);
 
-            this.ingredientBtnCW[i].onInputUp.add(this.toggleCW.bind(this,i), this);
-            this.ingredientBtnCCW[i] = game.add.button(game.world.centerX/2+50, spacing*j, 'ccw', actionOnClick, this, 2, 1, 0);
-
-            this.ingredientBtnCCW[i].onInputUp.add(this.toggleCCW.bind(this,i), this);
-
-            this.ingredientDir[i] = 0 ;
-            this.ingredientTimes[i] =  game.add.inputField(350, spacing*j);
-        }
+    },
+    update: function(){
+        var hitPlatform = game.physics.arcade.collide(player, platforms);
 
     },
     toggleCW: function(index){
