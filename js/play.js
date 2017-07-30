@@ -1,11 +1,11 @@
 
 
 var playState = {
-    ingredientTxt: [],
-    ingredientBtnCW: [],
-    ingredientBtnCCW: [],
-    ingredientDir: [],
-    ingredientTimes: [],
+//    ingredientTxt: [],
+//    ingredientBtnCW: [],
+//    ingredientBtnCCW: [],
+//    ingredientDir: [],
+//    ingredientTimes: [],
     resmd5: [],
     numInputs: 4,
     powerbarState: 100,
@@ -114,48 +114,48 @@ var playState = {
 
         }
 
-    },
-    toggleCW: function(index){
-        this.ingredientDir[index] = 0;
-        console.log(this.ingredientDir, index);
-        // re-color buttons
-        this.ingredientBtnCW[index].setFrames(2, 0, 0);
-        this.ingredientBtnCCW[index].setFrames(2, 1, 0);
-
-    },
-
-    toggleCCW: function(index){
-        this.ingredientDir[index] = 1;
-        this.ingredientBtnCW[index].setFrames(2, 1, 0);
-        this.ingredientBtnCCW[index].setFrames(2, 0, 0);
-
-
-    },
-
-    submit: function(){
-        if (this.are_inputs_valid()){
-            game.state.start('win');
-        }else{
-            game.state.start('redo');
-        }
-    },
-
-    are_inputs_valid: function(){
-        var isCorrect = true;
-        // set pass values below
-        var pass_vals = ["c4ca4238a0b923820dcc509a6f75849b", "c4ca4238a0b923820dcc509a6f75849b", "cfcd208495d565ef66e7dff9f98764da", "c4ca4238a0b923820dcc509a6f75849b"]
-         //i1...item4
-
-
-        var hashed_inputs = [];
-        for (i = 0; i < this.numInputs; i++) {
-            hashed_inputs[i] = CryptoJS.MD5(this.ingredientTxt[i].value+this.ingredientDir[i]+this.ingredientTimes[i].value).toString();
-            this.resmd5[i] = hashed_inputs[i];
-            if (hashed_inputs[i].toString() != pass_vals[i]){
-                 isCorrect = false
-            }
-        }
-        console.log(this.resmd5);
-        return isCorrect;
     }
+//    toggleCW: function(index){
+//        this.ingredientDir[index] = 0;
+//        console.log(this.ingredientDir, index);
+//        // re-color buttons
+//        this.ingredientBtnCW[index].setFrames(2, 0, 0);
+//        this.ingredientBtnCCW[index].setFrames(2, 1, 0);
+//
+//    },
+//
+//    toggleCCW: function(index){
+//        this.ingredientDir[index] = 1;
+//        this.ingredientBtnCW[index].setFrames(2, 1, 0);
+//        this.ingredientBtnCCW[index].setFrames(2, 0, 0);
+//
+//
+//    },
+//
+//    submit: function(){
+//        if (this.are_inputs_valid()){
+//            game.state.start('win');
+//        }else{
+//            game.state.start('redo');
+//        }
+//    },
+//
+//    are_inputs_valid: function(){
+//        var isCorrect = true;
+//        // set pass values below
+//        var pass_vals = ["c4ca4238a0b923820dcc509a6f75849b", "c4ca4238a0b923820dcc509a6f75849b", "cfcd208495d565ef66e7dff9f98764da", "c4ca4238a0b923820dcc509a6f75849b"]
+//         //i1...item4
+//
+//
+//        var hashed_inputs = [];
+//        for (i = 0; i < this.numInputs; i++) {
+//            hashed_inputs[i] = CryptoJS.MD5(this.ingredientTxt[i].value+this.ingredientDir[i]+this.ingredientTimes[i].value).toString();
+//            this.resmd5[i] = hashed_inputs[i];
+//            if (hashed_inputs[i].toString() != pass_vals[i]){
+//                 isCorrect = false
+//            }
+//        }
+//        console.log(this.resmd5);
+//        return isCorrect;
+//    }
 };
