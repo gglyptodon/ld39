@@ -24,6 +24,13 @@ var playState = {
         box1.animations.play('all', 0+Math.random() * (6 - 0) + 0, true);
 
     },
+    stopPlayer: function(player, platform){
+        if (player.x < platform.x){
+            player.x = platform.x - player.width;
+        }else{
+            player.x = platform.x + platform.width;
+        }
+    },
     collectItem: function(player, item){
 
         item.kill();
@@ -83,6 +90,9 @@ var playState = {
         var ground = platforms.create(-800, game.world.height - 60, 'ground');
         ground.body.immovable = true;
 
+        var hurdle = platforms.create(1200, game.world.height - 128, 'hurdle');
+        ground.body.immovable = true;
+
         // charge boxes prep
         chargeboxes = game.add.group();
         chargeboxes.enableBody = true;
@@ -136,11 +146,23 @@ var playState = {
                }
 
                // move ground
-               ground.x = ground.x + speed;
+               //ground.x = ground.x + speed;
+               for (platidx in platforms.children){
+                   platform = platforms.children[platidx];
+                   platform.x += speed;
+               }
 
                // recenter as necessary
                if (ground.x >= 0 | ground.x <= -1600){
                    ground.x = -800;
+
+               }
+               if (hurdle.x > 1200){
+                  hurdle.x = -1200;
+                  console.log('hurdle down');
+               }else if (hurdle.x < -1200){
+                  hurdle.x = 1200;
+                  console.log('hurdle up');
                }
                // move boxes
                for (cbox in chargeboxes.children){
@@ -169,6 +191,8 @@ var playState = {
         score_font.text = "Score: "+score;
 
         //  Reset the players velocity (movement)
+        game.physics.arcade.overlap(player, platforms, this.stopPlayer, null, this);
+
         game.physics.arcade.overlap(player, chargeboxes, this.collectItem, null, this);
 
     
