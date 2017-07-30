@@ -135,7 +135,6 @@ var playState = {
             speed = 15;
             var moveleftright = function(e) {
                run_snd.play();
-               if (e.keyCode == 39){
                    speed *= -1;
                    player.animations.play('right');
                }else{
@@ -157,7 +156,6 @@ var playState = {
 
             };
             
-            if ([37,39].indexOf(e.keyCode) >= 0){
                moveleftright(e);
                score +=1;
             }
@@ -181,7 +179,8 @@ var playState = {
     
        
         //  Allow the player to jump if they are touching the ground.
-        if (cursors.up.isDown && player.body.touching.down && hitPlatform)
+        wdown = game.input.keyboard.isDown(Phaser.Keyboard.W);
+        if ((cursors.up.isDown | wdown) && player.body.touching.down && hitPlatform)
         {
             player.body.velocity.y = -350;
             boing_snd.play();
