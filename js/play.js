@@ -13,7 +13,38 @@ var playState = {
     updatePowerbar: function(){
         this.powerbarState -=5;
     },
+    spawnBox: function(){
+            box1 = chargeboxes.create(760+Math.random() * (70 - 10) + 10, game.world.height - 128, 'recharge');
+             //box1.animations.play('all', 2, true);
+             box1.animations.add('all', [0, 1, 2, 3], 10, true);
+             box1.animations.play('all', 0+Math.random() * (6 - 0) + 0, true);
 
+    },
+    collectItem: function(player, item){
+        console.log("was in frame:"+item.frame); // 0 battery, 1 recharge, 2 mine , 3 empty
+        item.kill();
+        console.log("collect");
+        this.spawnBox();
+        switch (item.frame){
+            case 0:
+                this.powerbarState = 100;
+            case 1:
+                if (this.powerbarState + 20 <= 100){
+                    this.powerbarState += 20;
+                    }
+                else {
+                    this.powerbarState = 100;
+                }
+                break;
+            case 2:
+                this.powerbarState = 0;
+
+                break;
+            case 3:
+                break;
+
+        }
+    },
     create: function(){
         time_font = game.add.retroFont('knightHawks', 31, 25, Phaser.RetroFont.TEXT_SET6, 10, 1, 1);
         boing_snd = game.add.audio('boing_snd');
@@ -28,7 +59,8 @@ var playState = {
         cursors = game.input.keyboard.createCursorKeys();
         //  The platforms group contains the ground and the 2 ledges we can jump on
         platforms = game.add.group();
-        chargeboxes = game.add.group();    
+        chargeboxes = game.add.group();
+        chargeboxes.enableBody = true;
         //  We will enable physics for any object that is created in this group
         platforms.enableBody = true;
         // Here we create the ground.
@@ -38,6 +70,12 @@ var playState = {
         ground.body.immovable = true;
         // the first recharge
         box1 = chargeboxes.create(740, game.world.height - 128, 'recharge');
+
+        box1.animations.add('all', [0, 1, 2, 3], 10, true);
+        //box1.animations.add('battery', [2, 3], 10, true);
+        //box1.animations.add('mine', [4, 5], 10, true);
+        //box1.animations.add('empty', [5,6], 10, true);
+        box1.animations.play('all', 2, true);
 
 
         player = game.add.sprite(game.world.width / 2, game.world.height - ground.body.height *2.1, 'tortuga_small');
@@ -62,7 +100,6 @@ var playState = {
         //  Our two animations, walking left and right.
         player.animations.add('left', [0, 1], 10, true);
         player.animations.add('right', [2, 3], 10, true);
-        //add the power bar just above the head of the hero
 
         var style = { font: "bold 16px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" };
         // headers
@@ -121,6 +158,8 @@ var playState = {
         score_font.text = "Score: "+score;
         //console.log(this.score);
         //  Reset the players velocity (movement)
+        game.physics.arcade.overlap(player, chargeboxes, this.collectItem, null, this);
+
     
        
         //  Allow the player to jump if they are touching the ground.
