@@ -54,15 +54,22 @@ var playState = {
 
         game.add.plugin(PhaserInput.Plugin);
         game.input.keyboard.onUpCallback = function (e) {
+            var speed = 7;
             var moveleft = function(e) {
-               console.log(e.keyCode, "from moveleft")
-               ground.x = ground.x + 7;
-               player.animations.toggle('left');
-            }
+               console.log(e.keyCode, "from moveleft");
+               ground.x = ground.x + speed;
+               player.animations.play('left');
+            };
+            var moveright = function(w) {
+               ground.x = ground.x - speed;
+               player.animations.play('right');
+            };
             // These can be checked against Phaser.Keyboard.UP, for example.
             console.log(e.keyCode);
             if (e.keyCode == 37){
                moveleft(e);
+            }else if (e.keyCode == 39){
+               moveright();
             }
            
         };
