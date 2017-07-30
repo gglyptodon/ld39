@@ -1,4 +1,4 @@
-
+var speed;
 
 var playState = {
     resmd5: [],
@@ -18,11 +18,15 @@ var playState = {
             }
             return array;
         }
-        box1 = chargeboxes.create(760+Math.random() * (70 - 10) + 10, game.world.height - 128, 'recharge');
-
+        for (var i =0 ; i<1;i++){
+        box1 = chargeboxes.create(420+Math.random() * (900 - 620) +  620, game.world.height - 128, 'recharge');
         box1.animations.add('all', shuffleArray([0,1, 1, 2, 2, 3]), 10, true);
         box1.animations.play('all', 0+Math.random() * (6 - 0) + 0, true);
+        box2 = chargeboxes.create(-420+Math.random() * (-900 + 620) -  620, game.world.height - 128, 'recharge');
+        box2.animations.add('all', shuffleArray([0,1, 1, 2, 2, 3]), 10, true);
+        box2.animations.play('all', 0+Math.random() * (6 - 0) + 0, true);
 
+        }
     },
     stopPlayer: function(player, platform){
         if (player.x < platform.x){
@@ -44,6 +48,7 @@ var playState = {
                 recharge_snd.play();
                 if (this.powerbarState + 20 <= 100){
                     this.powerbarState += 20;
+                    speed+=10;
                     }
                 else {
                     this.powerbarState = 100;
@@ -98,11 +103,15 @@ var playState = {
         chargeboxes.enableBody = true;
 
         // the first recharge
-        box1 = chargeboxes.create(740, game.world.height - 128, 'recharge');
+        box1 = chargeboxes.create(640, game.world.height - 128, 'recharge');
 
         box1.animations.add('all', [0, 1, 2, 3], 10, true);
         box1.animations.play('all', 2, true);
 
+        box2 = chargeboxes.create(-440, game.world.height - 128, 'recharge');
+
+        box2.animations.add('all', [0, 1, 2, 3], 10, true);
+        box2.animations.play('all', 2, true);
         // create our player
         player = game.add.sprite(game.world.width / 2, game.world.height - ground.body.height *2.1, 'tortuga_small');
         game.physics.arcade.enable(player);
@@ -133,9 +142,7 @@ var playState = {
 
         // setup movement
         game.input.keyboard.onUpCallback = function (e) {
-            console.log(e.keyCode);
-            console.log('wat');
-            var speed = 15;
+            speed = 15;
             var moveleftright = function(e) {
                run_snd.play();
                if ([39,68].indexOf(e.keyCode) >= 0){
