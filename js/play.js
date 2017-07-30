@@ -191,20 +191,21 @@ var playState = {
 
 
             var oldhighscore = localStorage.getItem("turtlegames_highscore");
+            localStorage.setItem("turtlegames_yourscore", score);
             var newscore = score;
             console.log(newscore);
             if (oldhighscore && oldhighscore != newscore){
             if (score > +oldhighscore){
-                gameover_font.text = "New Highscore!";
-                localStorage.setItem("turtlegames_highscore", score);
+                //localStorage.setItem("turtlegames_highscore", score);
+                localStorage.setItem("turtlegames_yourscore", score);
             }
             else{
-                gameover_font.text = "Time's Up! Highscore:"+oldhighscore;
+                //gameover_font.text = "Time's Up! Highscore:"+oldhighscore;
             }
         }
         else {
-            gameover_font.text = "New Highscore!!! "+score;
             localStorage.setItem("turtlegames_highscore", score);
+
         }
 
 
