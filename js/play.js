@@ -95,8 +95,8 @@ var playState = {
         var ground = platforms.create(-800, game.world.height - 60, 'ground');
         ground.body.immovable = true;
 
-        var hurdle = platforms.create(1200, game.world.height - 128, 'hurdle');
-        ground.body.immovable = true;
+        hurdle = platforms.create(1200, game.world.height - 128, 'hurdle');
+        hurdle.body.immovable = true;
 
         // charge boxes prep
         chargeboxes = game.add.group();
@@ -194,6 +194,8 @@ var playState = {
         powerbar.y = player.y - 40;
 
         var hitPlatform = game.physics.arcade.collide(player, platforms);
+//        game.physics.arcade.collide(platforms, platforms);
+
 
         score_font.text = "Score: "+score;
 
