@@ -1,5 +1,5 @@
 var menuState = {
-    timeToWait: 0.1*60,
+    timeToWait: 0.1*1,
     isStillWaiting: function() {
         console.log("check waiting", localStorage.getItem("escapepot_localstoragetimer"));
         if (localStorage.getItem("escapepot_localstoragetimer") > 0 ) {
@@ -14,15 +14,8 @@ var menuState = {
     },
     startup: function(){
 
-        if (! this.isStillWaiting()){
-            localStorage.setItem("escapepot_localstoragetimer",this.timeToWait);
-            game.state.start('play');
+        game.state.start('play');
 
-        }
-        else{
-
-            game.state.start('redo');
-        }
     },
 
     create: function(){
