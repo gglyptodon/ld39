@@ -66,7 +66,7 @@ var playState = {
         }
     },
     create: function(){
-
+        speed = 15;
         time_font = game.add.retroFont('knightHawks', 31, 25, Phaser.RetroFont.TEXT_SET6, 10, 1, 1);
         gameover_font = game.add.retroFont('knightHawks', 31, 25, Phaser.RetroFont.TEXT_SET6, 10, 1, 1);
 
@@ -142,11 +142,12 @@ var playState = {
 
         // setup movement
         game.input.keyboard.onUpCallback = function (e) {
-            speed = 15;
+
             var moveleftright = function(e) {
                run_snd.play();
+               tomove = speed;
                if ([39,68].indexOf(e.keyCode) >= 0){
-                   speed *= -1;
+                   tomove *= -1;
                    player.animations.play('right');
                }else{
                    player.animations.play('left');
@@ -156,7 +157,7 @@ var playState = {
                //ground.x = ground.x + speed;
                for (platidx in platforms.children){
                    platform = platforms.children[platidx];
-                   platform.x += speed;
+                   platform.x += tomove;
                }
 
                // recenter as necessary
@@ -174,7 +175,7 @@ var playState = {
                // move boxes
                for (cbox in chargeboxes.children){
                    chargebox = chargeboxes.children[cbox];
-                   chargebox.x += speed;
+                   chargebox.x += tomove;
                };
 
             };
@@ -188,7 +189,7 @@ var playState = {
 
     },
     update: function(){
-
+        console.log(speed);
         powerbar.width = this.powerbarState;
         powerbar.x = player.x;
         powerbar.y = player.y - 40;
