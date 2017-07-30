@@ -199,7 +199,9 @@ var playState = {
        
         //  Allow the player to jump if they are touching the ground.
         wdown = game.input.keyboard.isDown(Phaser.Keyboard.W);
-        if ((cursors.up.isDown | wdown) && player.body.touching.down && hitPlatform)
+        spacedown = game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR);
+        wanna_jump = (wdown | spacedown | cursors.up.isDown);
+        if (wanna_jump && player.body.touching.down && hitPlatform)
         {
             player.body.velocity.y = -350;
             boing_snd.play();
