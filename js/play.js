@@ -126,7 +126,7 @@ var playState = {
         //var score = 0;
         game.add.plugin(PhaserInput.Plugin);
         game.input.keyboard.onUpCallback = function (e) {
-            var speed = 10;
+            var speed = 15;
             var moveleftright = function(e) {
                run_snd.play();
                if (e.keyCode == 39){
