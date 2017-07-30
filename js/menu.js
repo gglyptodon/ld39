@@ -1,21 +1,21 @@
 var menuState = {
     timeToWait: 0.1*60,
     isStillWaiting: function() {
-        console.log("check waiting", localStorage.getItem("escapepot_localstoragetimer"));
-        if (localStorage.getItem("escapepot_localstoragetimer") > 0 ) {
+        console.log("check waiting", localStorage.getItem("turtlegames_localstoragetimer"));
+        if (localStorage.getItem("turtlegames_localstoragetimer") > 0 ) {
             return true;
         }
         else{
-            var localStorageTimer = localStorage.getItem("escapepot_localstoragetimer");
+            var localStorageTimer = localStorage.getItem("turtlegames_localstoragetimer");
             console.log(localStorageTimer, "lcl");
-            return false
-        }
+           return false
+       }
 
     },
     startup: function(){
 
         if (! this.isStillWaiting()){
-            localStorage.setItem("escapepot_localstoragetimer",this.timeToWait);
+            localStorage.setItem("turtlegames_localstoragetimer",this.timeToWait);
             game.state.start('play');
 
         }
@@ -28,6 +28,7 @@ var menuState = {
     create: function(){
 
         game.stage.backgroundColor = '#555555';
+        console.log("menu")
 
         background = game.add.tileSprite(0, 0, 800, 600, 'backgroundmenu');
 
@@ -38,7 +39,7 @@ var menuState = {
         button.onInputUp.add(this.startup, this);
 
         var style = { font: "bold 32px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" };
-        placeholdertext = game.add.text(50,50,"mix a potion, or something\n click button to start", style);
+        placeholdertext = game.add.text(50,50,"TURTLE GAMES \n click button to start", style);
     }
 
 };
