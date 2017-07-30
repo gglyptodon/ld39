@@ -16,10 +16,10 @@ var loadState = {
         game.load.image('backgroundplay', 'assets/img/bg_play.png')
 
         // sprite sheets for characters
-        game.load.spritesheet('tortuga_small', 'assets/tortuga_hide.png', 68, 47);
+        game.load.spritesheet('tortuga_small', 'assets/img/tortuga_small.png', 68, 47);
 
         //items
-        game.load.spritesheet('recharge', 'assets/recharge.png', 68, 47);
+        game.load.spritesheet('recharge', 'assets/img/recharge.png', 68, 47);
 
         //music and soundFX TODO
         //game.load.audio('bgmusic', ['assets/sounds/bgmusic.ogg']);
