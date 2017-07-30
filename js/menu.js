@@ -1,20 +1,5 @@
 var menuState = {
-    timeToWait: 0.1*1,
-    isStillWaiting: function() {
-        console.log("check waiting", localStorage.getItem("turtlegames_localstoragetimer"));
-        if (localStorage.getItem("turtlegames_localstoragetimer") > 0 ) {
-            return true;
-        }
-        else{
-            var localStorageTimer = localStorage.getItem("turtlegames_localstoragetimer");
-            console.log(localStorageTimer, "lcl");
-           return false
-       }
-
-    },
     startup: function(){
-
-
         game.state.start('play');
     },
 
