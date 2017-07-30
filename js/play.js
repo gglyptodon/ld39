@@ -9,7 +9,10 @@ var playState = {
     resmd5: [],
     numInputs: 4,
     powerbarState: 100,
-    score: 0,
+
+    updatePowerbar: function(){
+        this.powerbarState -=5;
+    },
 
     create: function(){
         time_font = game.add.retroFont('knightHawks', 31, 25, Phaser.RetroFont.TEXT_SET6, 10, 1, 1);
@@ -21,7 +24,7 @@ var playState = {
         score_txt.fixedToCamera = true;
         time_txt.fixedToCamera = true;
 
-        background = game.add.tileSprite(0, 0, 800, 600, 'backgroundplay');
+        //background = game.add.tileSprite(0, 0, 800, 600, 'backgroundplay');
         cursors = game.input.keyboard.createCursorKeys();
         //  The platforms group contains the ground and the 2 ledges we can jump on
         platforms = game.add.group();
@@ -38,6 +41,14 @@ var playState = {
 
 
         player = game.add.sprite(game.world.width / 2, game.world.height - ground.body.height *2.1, 'tortuga_small');
+        score = 0;
+         //  Create our Timer
+        timer = game.time.create(false);
+        timer.loop(1000, this.updatePowerbar, this);
+        timer.start();
+
+
+
         powerbar = game.add.sprite(player.x,player.y-20,"powerbar");
         powerbar.width = this.powerbarState;
         //  We need to enable physics on the player
@@ -62,7 +73,7 @@ var playState = {
 
         //button = game.add.button(game.world.centerX/2, 400, 'buttonmix', actionOnClick, this, 1, 0, 2);
         //button.onInputUp.add(this.submit, this);
-
+        //var score = 0;
         game.add.plugin(PhaserInput.Plugin);
         game.input.keyboard.onUpCallback = function (e) {
             var speed = 10;
@@ -93,18 +104,21 @@ var playState = {
             
             if ([37,39].indexOf(e.keyCode) >= 0){
                moveleftright(e);
+               score +=1;
             }
            
         };
 
     },
     update: function(){
+
         powerbar.width = this.powerbarState;
         powerbar.x = player.x;
         powerbar.y = player.y - 40;
+        //console.log(this.score);
         var hitPlatform = game.physics.arcade.collide(player, platforms);
         //time_font.text = "Time: " + total;
-        score_font.text = "Score: "+this.score;
+        score_font.text = "Score: "+score;
         //console.log(this.score);
         //  Reset the players velocity (movement)
     
@@ -114,8 +128,21 @@ var playState = {
         {
             player.body.velocity.y = -350;
             boing_snd.play();
-            this.powerbarState -=5;
+            this.powerbarState -=10;
 
+        }
+        if (this.powerbarState <= 0){
+            player.kill();
+
+
+
+
+
+            var oldhighscore = localStorage.getItem("turtlegames_score");
+            var newscore = score;
+
+
+            game.state.start('win');
         }
 
     }
