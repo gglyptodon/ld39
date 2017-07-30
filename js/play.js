@@ -18,7 +18,7 @@ var playState = {
             }
             return array;
         }
-        for (var i =0 ; i<2;i++){
+        for (var i =0 ; i<1;i++){
         box1 = chargeboxes.create(420+Math.random() * (900 - 620) +  620, game.world.height - 128, 'recharge');
         box1.animations.add('all', shuffleArray([0,1, 1, 2, 2, 3]), 10, true);
         box1.animations.play('all', 0+Math.random() * (6 - 0) + 0, true);
@@ -135,6 +135,7 @@ var playState = {
             speed = 15;
             var moveleftright = function(e) {
                run_snd.play();
+               if ([39,68].indexOf(e.keyCode) >= 0){
                    speed *= -1;
                    player.animations.play('right');
                }else{
@@ -156,6 +157,7 @@ var playState = {
 
             };
             
+            if ([37,39,65,68].indexOf(e.keyCode) >= 0){
                moveleftright(e);
                score +=1;
             }
