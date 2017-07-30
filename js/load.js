@@ -30,7 +30,7 @@ var loadState = {
         //game.load.audio('gameover_snd',['assets/sounds/gameover_snd.ogg']);
         //game.load.audio('gamestart_snd',['assets/sounds/gamestart_snd.ogg']);
         game.load.audio('explode_snd',['assets/sounds/explosion_snd.ogg']);
-        game.load.audio('hallo'_snd,['assets/sounds/hallo_snd.ogg']);
+        game.load.audio('hallo_snd', ['assets/sounds/hallo_snd.ogg']);
     },
 
     create: function(){
