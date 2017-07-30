@@ -9,8 +9,17 @@ var playState = {
     resmd5: [],
     numInputs: 4,
     powerbarState: 100,
+    score: 0,
 
     create: function(){
+        time_font = game.add.retroFont('knightHawks', 31, 25, Phaser.RetroFont.TEXT_SET6, 10, 1, 1);
+        boing_snd = game.add.audio('boing_snd');
+        run_snd = game.add.audio('run_snd');
+        score_font = game.add.retroFont('knightHawks', 31, 25, Phaser.RetroFont.TEXT_SET6, 10, 1, 1);
+        var time_txt = game.add.image(500,  16, time_font);
+        var score_txt = game.add.image(0, 16, score_font);//'score: 0', { fontSize: '32px', fill: '#000' });
+        score_txt.fixedToCamera = true;
+        time_txt.fixedToCamera = true;
 
         background = game.add.tileSprite(0, 0, 800, 600, 'backgroundplay');
         cursors = game.input.keyboard.createCursorKeys();
@@ -58,6 +67,7 @@ var playState = {
         game.input.keyboard.onUpCallback = function (e) {
             var speed = 10;
             var moveleftright = function(e) {
+               run_snd.play();
                if (e.keyCode == 39){
                    speed *= -1;
                    player.animations.play('right');
@@ -67,6 +77,7 @@ var playState = {
                console.log(e.keyCode, "from moveleft");
                // move ground
                ground.x = ground.x + speed;
+
                // recenter as necessary
                if (ground.x >= 0 | ground.x <= -1600){
                    ground.x = -800;
@@ -88,7 +99,13 @@ var playState = {
 
     },
     update: function(){
+        powerbar.width = this.powerbarState;
+        powerbar.x = player.x;
+        powerbar.y = player.y - 40;
         var hitPlatform = game.physics.arcade.collide(player, platforms);
+        //time_font.text = "Time: " + total;
+        score_font.text = "Score: "+this.score;
+        //console.log(this.score);
         //  Reset the players velocity (movement)
     
        
@@ -96,6 +113,9 @@ var playState = {
         if (cursors.up.isDown && player.body.touching.down && hitPlatform)
         {
             player.body.velocity.y = -350;
+            boing_snd.play();
+            this.powerbarState -=5;
+
         }
 
     }

@@ -14,6 +14,9 @@ var loadState = {
         game.load.image('backgroundredo','assets/img/bg_redo.png');
         game.load.image('backgroundwin', 'assets/img/bg_win.png')
         game.load.image('backgroundplay', 'assets/img/bg_play.png')
+        // load fonts
+        game.load.image('knightHawks', 'assets/fonts/KNIGHT3.png');
+
 
         // sprite sheets for characters
 
@@ -28,6 +31,7 @@ var loadState = {
         game.load.audio('recharge_snd', ['assets/sounds/recharge.ogg']);
         game.load.audio('battery_snd', ['assets/sounds/recharge.ogg']);
         game.load.audio('run_snd',['assets/sounds/run_snd.ogg']);
+        game.load.audio('boing_snd',['assets/sounds/boing_snd.ogg']);
         //game.load.audio('reachstop_snd',['assets/sounds/reachstop_snd.ogg']);
         //game.load.audio('gameover_snd',['assets/sounds/gameover_snd.ogg']);
         //game.load.audio('gamestart_snd',['assets/sounds/gamestart_snd.ogg']);
