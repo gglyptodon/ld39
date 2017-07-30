@@ -10,14 +10,19 @@ var menuState = {
 
         background = game.add.tileSprite(0, 0, 800, 600, 'backgroundmenu');
 
-        button = game.add.button(game.world.centerX/2, 400, 'buttonmenu', actionOnClick, this, 1, 0, 2);
+        button = game.add.button(game.world.centerX, game.world.height * .9, 'buttonmenu', actionOnClick, this, 1, 0, 2);
 
         button.onInputOver.add(over, this);
         button.onInputOut.add(out, this);
         button.onInputUp.add(this.startup, this);
 
         var style = { font: "bold 32px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" };
-        placeholdertext = game.add.text(50,50,"TURTLE GAMES \n click button to start", style);
+        placeholdertext = game.add.text(50,50,"TURTLE GAMES \nclick button to start", style);
+        var style_sm = { font: "bold 24px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" };
+
+        instructionstext = game.add.text(50, 250, 
+                                         "- mash arrow keys to move\n- collect battery swaps and charges to keep your power high\n- watch out for mine turtles", 
+                                         style_sm)
     }
 
 };

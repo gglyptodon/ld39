@@ -14,7 +14,7 @@ var winState = {
             placeholdertext = game.add.text(50,50,"GAME OVER \nOLD HIGHSCORE:  "+ highscore + "\n" + "Your Score: "+yourscore, style);
         }
 
-        button = game.add.button(game.world.centerX, game.world.height * .8, 'buttonrestart', actionOnClick, this, 1, 0, 2);
+        button = game.add.button(game.world.centerX, game.world.height * .9, 'buttonrestart', actionOnClick, this, 1, 0, 2);
         button.onInputUp.add(this.backtostart, this);
     },
 

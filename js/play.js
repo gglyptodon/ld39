@@ -6,7 +6,7 @@ var playState = {
     powerbarState: 100,
 
     updatePowerbar: function(){
-        this.powerbarState -=8;
+        this.powerbarState -= 7;
     },
     spawnBox: function(){
         var shuffleArray = function (array) {
