@@ -11,12 +11,21 @@ var playState = {
     powerbarState: 100,
 
     updatePowerbar: function(){
-        this.powerbarState -=5;
+        this.powerbarState -=8;
     },
     spawnBox: function(){
+             var shuffleArray = function (array) {
+                 for (var i = array.length - 1; i > 0; i--) {
+                     var j = Math.floor(Math.random() * (i + 1));
+                     var temp = array[i];
+                     array[i] = array[j];
+                     array[j] = temp;
+                 }
+                 return array;
+             }
             box1 = chargeboxes.create(760+Math.random() * (70 - 10) + 10, game.world.height - 128, 'recharge');
              //box1.animations.play('all', 2, true);
-             box1.animations.add('all', [0, 1, 2, 3], 10, true);
+             box1.animations.add('all', shuffleArray([0,1, 1, 2, 2, 3]), 10, true);
              box1.animations.play('all', 0+Math.random() * (6 - 0) + 0, true);
 
     },
