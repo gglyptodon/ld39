@@ -9,19 +9,17 @@ var playState = {
     resmd5: [],
     numInputs: 4,
     create: function(){
-        background = game.add.tileSprite(0, 0, 800, 600, 'backgroundplay');
 
+        background = game.add.tileSprite(0, 0, 800, 600, 'backgroundplay');
+        cursors = game.input.keyboard.createCursorKeys();
         //  The platforms group contains the ground and the 2 ledges we can jump on
         platforms = game.add.group();
     
         //  We will enable physics for any object that is created in this group
         platforms.enableBody = true;
         // Here we create the ground.
-        var ground = platforms.create(0, game.world.height - 64, 'ground');
-    
-        //  Scale to be much wider, twice as tall
-        ground.scale.setTo(10, 2);
-    
+        var ground = platforms.create(-800, game.world.height - 60, 'ground');
+ 
         //  This stops it from falling away when you jump on it
         ground.body.immovable = true;
 
@@ -50,11 +48,30 @@ var playState = {
         button.onInputUp.add(this.submit, this);
 
         game.add.plugin(PhaserInput.Plugin);
-
+        game.input.keyboard.onUpCallback = function (e) {
+            var moveleft = function(e) {
+               console.log(e.keyCode, "from moveleft")
+               player.x = player.x - 7;
+            }
+            // These can be checked against Phaser.Keyboard.UP, for example.
+            console.log(e.keyCode);
+            if (e.keyCode == 37){
+               moveleft(e);
+            }
+           
+        };
 
     },
     update: function(){
         var hitPlatform = game.physics.arcade.collide(player, platforms);
+        //  Reset the players velocity (movement)
+    
+       
+        //  Allow the player to jump if they are touching the ground.
+        if (cursors.up.isDown && player.body.touching.down && hitPlatform)
+        {
+            player.body.velocity.y = -350;
+        }
 
     },
     toggleCW: function(index){
