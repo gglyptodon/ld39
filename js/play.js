@@ -8,6 +8,8 @@ var playState = {
     ingredientTimes: [],
     resmd5: [],
     numInputs: 4,
+    powerbarState: 100,
+
     create: function(){
         background = game.add.tileSprite(0, 0, 800, 600, 'backgroundplay');
 
@@ -28,7 +30,7 @@ var playState = {
 
         player = game.add.sprite(game.world.width / 2, game.world.height - ground.body.height *2.1, 'tortuga_small');
         powerbar = game.add.sprite(player.x,player.y-20,"powerbar");
-        powerbar.width = 100;
+        powerbar.width = this.powerbarState;
         //  We need to enable physics on the player
         game.physics.arcade.enable(player);
     
