@@ -50,6 +50,7 @@ var playState = {
         }
     },
     create: function(){
+
         time_font = game.add.retroFont('knightHawks', 31, 25, Phaser.RetroFont.TEXT_SET6, 10, 1, 1);
         gameover_font = game.add.retroFont('knightHawks', 31, 25, Phaser.RetroFont.TEXT_SET6, 10, 1, 1);
 
@@ -184,7 +185,7 @@ var playState = {
         }
         if (this.powerbarState <= 0){
             player.kill();
-
+            console.log('no more power');
 
 
 
@@ -207,7 +208,7 @@ var playState = {
         }
 
 
-
+            this.powerbarState = 100;
             game.state.start('win');
         }
 
