@@ -21,14 +21,17 @@ var playState = {
 
     },
     collectItem: function(player, item){
-        console.log("was in frame:"+item.frame); // 0 battery, 1 recharge, 2 mine , 3 empty
+        //console.log("was in frame:"+item.frame); // 0 battery, 1 recharge, 2 mine , 3 empty
         item.kill();
-        console.log("collect");
+        //console.log("collect");
+
         this.spawnBox();
         switch (item.frame){
             case 0:
                 this.powerbarState = 100;
+                battery_snd.play();
             case 1:
+                recharge_snd.play();
                 if (this.powerbarState + 20 <= 100){
                     this.powerbarState += 20;
                     }
@@ -37,6 +40,7 @@ var playState = {
                 }
                 break;
             case 2:
+                explode_snd.play();
                 this.powerbarState = 0;
 
                 break;
@@ -47,8 +51,14 @@ var playState = {
     },
     create: function(){
         time_font = game.add.retroFont('knightHawks', 31, 25, Phaser.RetroFont.TEXT_SET6, 10, 1, 1);
+
         boing_snd = game.add.audio('boing_snd');
         run_snd = game.add.audio('run_snd');
+        recharge_snd = game.add.audio('recharge_snd');
+        battery_snd = game.add.audio('battery_snd');
+        explode_snd = game.add.audio('explode_snd');
+
+
         score_font = game.add.retroFont('knightHawks', 31, 25, Phaser.RetroFont.TEXT_SET6, 10, 1, 1);
         var time_txt = game.add.image(500,  16, time_font);
         var score_txt = game.add.image(0, 16, score_font);//'score: 0', { fontSize: '32px', fill: '#000' });
@@ -122,7 +132,7 @@ var playState = {
                }else{
                    player.animations.play('left');
                }
-               console.log(e.keyCode, "from moveleft");
+               //console.log(e.keyCode, "from moveleft");
                // move ground
                ground.x = ground.x + speed;
 
@@ -135,7 +145,7 @@ var playState = {
                    chargebox = chargeboxes.children[cbox];
                    chargebox.x += speed;
                };
-               console.log(ground.x);
+               //console.log(ground.x);
             };
             // These can be checked against Phaser.Keyboard.UP, for example.
             
