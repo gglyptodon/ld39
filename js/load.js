@@ -25,9 +25,9 @@ var loadState = {
         game.load.image("powerbar","assets/img/powerbar.png");
         //music and soundFX TODO
         //game.load.audio('bgmusic', ['assets/sounds/bgmusic.ogg']);
-        //game.load.audio('recharge_snd', ['assets/sounds/recharge.ogg']);
-        //game.load.audio('battery_snd', ['assets/sounds/recharge.ogg']);
-        //game.load.audio('run_snd',['assets/sounds/run_snd.ogg']);
+        game.load.audio('recharge_snd', ['assets/sounds/recharge.ogg']);
+        game.load.audio('battery_snd', ['assets/sounds/recharge.ogg']);
+        game.load.audio('run_snd',['assets/sounds/run_snd.ogg']);
         //game.load.audio('reachstop_snd',['assets/sounds/reachstop_snd.ogg']);
         //game.load.audio('gameover_snd',['assets/sounds/gameover_snd.ogg']);
         //game.load.audio('gamestart_snd',['assets/sounds/gamestart_snd.ogg']);
