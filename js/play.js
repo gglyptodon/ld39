@@ -120,7 +120,7 @@ var playState = {
         var style = { font: "bold 16px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" };
         // headers
         var header_y = 50;
-        game.add.plugin(PhaserInput.Plugin);
+
         // setup movement
         game.input.keyboard.onUpCallback = function (e) {
             var speed = 15;
