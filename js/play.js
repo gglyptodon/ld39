@@ -27,6 +27,8 @@ var playState = {
 
 
         player = game.add.sprite(game.world.width / 2, game.world.height - ground.body.height *2.1, 'tortuga_small');
+        powerbar = game.add.sprite(player.x,player.y-20,"powerbar");
+        powerbar.width = 100;
         //  We need to enable physics on the player
         game.physics.arcade.enable(player);
     
@@ -38,6 +40,7 @@ var playState = {
         //  Our two animations, walking left and right.
         player.animations.add('left', [0, 1], 10, true);
         player.animations.add('right', [2, 3], 10, true);
+        //add the power bar just above the head of the hero
 
         var style = { font: "bold 16px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" };
         // headers
