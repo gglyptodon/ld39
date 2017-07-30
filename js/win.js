@@ -1,7 +1,7 @@
 var winState = {
     create: function(){
-        // set fail timer to 0, so a refresh works as if from start
-        localStorage.setItem("turtlegames_localstoragetimer", 0);
+
+        localStorage.setItem("turtlegames_highscore", 123);
 
         background = game.add.tileSprite(0, 0, 800, 600, 'backgroundwin');
         var style = { font: "bold 32px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" };

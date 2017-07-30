@@ -51,6 +51,8 @@ var playState = {
     },
     create: function(){
         time_font = game.add.retroFont('knightHawks', 31, 25, Phaser.RetroFont.TEXT_SET6, 10, 1, 1);
+        gameover_font = game.add.retroFont('knightHawks', 31, 25, Phaser.RetroFont.TEXT_SET6, 10, 1, 1);
+
 
         boing_snd = game.add.audio('boing_snd');
         run_snd = game.add.audio('run_snd');
@@ -60,10 +62,10 @@ var playState = {
 
 
         score_font = game.add.retroFont('knightHawks', 31, 25, Phaser.RetroFont.TEXT_SET6, 10, 1, 1);
-        var time_txt = game.add.image(500,  16, time_font);
+        var gameover_txt = game.add.image(500,  16, gameover_font);
         var score_txt = game.add.image(0, 16, score_font);//'score: 0', { fontSize: '32px', fill: '#000' });
         score_txt.fixedToCamera = true;
-        time_txt.fixedToCamera = true;
+        gameover_txt.fixedToCamera = true;
 
         //background = game.add.tileSprite(0, 0, 800, 600, 'backgroundplay');
         cursors = game.input.keyboard.createCursorKeys();
@@ -187,8 +189,23 @@ var playState = {
 
 
 
-            var oldhighscore = localStorage.getItem("turtlegames_score");
+            var oldhighscore = localStorage.getItem("turtlegames_highscore");
             var newscore = score;
+            console.log(newscore);
+            if (oldhighscore && oldhighscore != newscore){
+            if (score > +oldhighscore){
+                gameover_font.text = "New Highscore!";
+                localStorage.setItem("turtlegames_highscore", score);
+            }
+            else{
+                gameover_font.text = "Time's Up! Highscore:"+oldhighscore;
+            }
+        }
+        else {
+            gameover_font.text = "New Highscore!!! "+score;
+            localStorage.setItem("turtlegames_highscore", score);
+        }
+
 
 
             game.state.start('win');
