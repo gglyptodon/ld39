@@ -11,6 +11,10 @@ var playState = {
     powerbarState: 100,
 
     create: function(){
+        time_font = game.add.retroFont('knightHawks', 31, 25, Phaser.RetroFont.TEXT_SET6, 10, 1, 1);
+        //score_font = game.add.retroFont('knightHawks', 31, 25, Phaser.RetroFont.TEXT_SET6, 10, 1, 1);
+        var time_txt = game.add.image(500,  16, time_font);
+        //var score_txt = game.add.image(0, 16, score_font);//'score: 0', { fontSize: '32px', fill: '#000' });
 
         background = game.add.tileSprite(0, 0, 800, 600, 'backgroundplay');
         cursors = game.input.keyboard.createCursorKeys();
