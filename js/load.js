@@ -21,6 +21,7 @@ var loadState = {
 
         //items
         game.load.spritesheet('recharge', 'assets/img/recharge.png', 68, 47);
+        game.load.image('ground', 'assets/img/ground.png');
         game.load.image("powerbar","assets/img/powerbar.png");
         //music and soundFX TODO
         //game.load.audio('bgmusic', ['assets/sounds/bgmusic.ogg']);
