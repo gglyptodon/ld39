@@ -49,6 +49,7 @@ var playState = {
                 }
                 break;
             case 2:
+                hallo_snd.play();
                 explode_snd.play();
                 this.powerbarState = 0;
 
@@ -63,12 +64,14 @@ var playState = {
         time_font = game.add.retroFont('knightHawks', 31, 25, Phaser.RetroFont.TEXT_SET6, 10, 1, 1);
         gameover_font = game.add.retroFont('knightHawks', 31, 25, Phaser.RetroFont.TEXT_SET6, 10, 1, 1);
 
-
+        bgmusic = game.add.audio('bgmusic');
+        bgmusic.play();
         boing_snd = game.add.audio('boing_snd');
         run_snd = game.add.audio('run_snd');
         recharge_snd = game.add.audio('recharge_snd');
         battery_snd = game.add.audio('battery_snd');
         explode_snd = game.add.audio('explode_snd');
+        hallo_snd = game.add.audio('hallo_snd');
 
 
         score_font = game.add.retroFont('knightHawks', 31, 25, Phaser.RetroFont.TEXT_SET6, 10, 1, 1);
@@ -195,7 +198,7 @@ var playState = {
         if (this.powerbarState <= 0){
             player.kill();
             console.log('no more power');
-
+            bgmusic.stop();
 
 
 
