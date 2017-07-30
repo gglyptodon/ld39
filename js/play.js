@@ -16,7 +16,7 @@ var playState = {
         cursors = game.input.keyboard.createCursorKeys();
         //  The platforms group contains the ground and the 2 ledges we can jump on
         platforms = game.add.group();
-    
+        chargeboxes = game.add.group();    
         //  We will enable physics for any object that is created in this group
         platforms.enableBody = true;
         // Here we create the ground.
@@ -24,6 +24,8 @@ var playState = {
  
         //  This stops it from falling away when you jump on it
         ground.body.immovable = true;
+        // the first recharge
+        box1 = chargeboxes.create(740, game.world.height - 128, 'recharge');
 
 
         player = game.add.sprite(game.world.width / 2, game.world.height - ground.body.height *2.1, 'tortuga_small');
@@ -55,28 +57,31 @@ var playState = {
         game.add.plugin(PhaserInput.Plugin);
         game.input.keyboard.onUpCallback = function (e) {
             var speed = 10;
-            var moveleft = function(e) {
+            var moveleftright = function(e) {
+               if (e.keyCode == 39){
+                   speed *= -1;
+                   player.animations.play('right');
+               }else{
+                   player.animations.play('left');
+               }
                console.log(e.keyCode, "from moveleft");
+               // move ground
                ground.x = ground.x + speed;
-               player.animations.play('left');
-               if (ground.x >= 0){
+               // recenter as necessary
+               if (ground.x >= 0 | ground.x <= -1600){
                    ground.x = -800;
                }
+               // move boxes
+               for (cbox in chargeboxes.children){
+                   chargebox = chargeboxes.children[cbox];
+                   chargebox.x += speed;
+               };
                console.log(ground.x);
             };
-            var moveright = function(w) {
-               ground.x = ground.x - speed;
-               player.animations.play('right');
-               if (ground.x <= -1600){
-                   ground.x = -800;
-               }
-            };
             // These can be checked against Phaser.Keyboard.UP, for example.
-            console.log(e.keyCode);
-            if (e.keyCode == 37){
-               moveleft(e);
-            }else if (e.keyCode == 39){
-               moveright();
+            
+            if ([37,39].indexOf(e.keyCode) >= 0){
+               moveleftright(e);
             }
            
         };

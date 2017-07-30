@@ -20,7 +20,7 @@ var loadState = {
         game.load.spritesheet('tortuga_small', 'assets/img/tortuga_small.png', 68, 47);
 
         //items
-        game.load.spritesheet('recharge', 'assets/img/recharge.png', 68, 47);
+        game.load.spritesheet('recharge', 'assets/img/recharge.png', 68, 68);
         game.load.image('ground', 'assets/img/ground.png');
         game.load.image("powerbar","assets/img/powerbar.png");
         //music and soundFX TODO
