@@ -56,7 +56,8 @@ var playState = {
         game.input.keyboard.onUpCallback = function (e) {
             var moveleft = function(e) {
                console.log(e.keyCode, "from moveleft")
-               player.x = player.x - 7;
+               ground.x = ground.x + 7;
+               player.animations.toggle('left');
             }
             // These can be checked against Phaser.Keyboard.UP, for example.
             console.log(e.keyCode);
