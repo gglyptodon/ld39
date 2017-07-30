@@ -21,7 +21,7 @@ var menuState = {
         var style_sm = { font: "bold 24px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" };
 
         instructionstext = game.add.text(50, 210, 
-                                         "- mash arrow keys to move\n- collect battery swaps and charges to keep your power high\n- watch out for mine turtles", 
+                                         "- mash arrow keys to move (and/or WASD)\n- collect battery swaps and charges to keep your power high\n- watch out for mine turtles", 
                                          style_sm)
     }
 
