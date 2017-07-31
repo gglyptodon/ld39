@@ -15,6 +15,13 @@ var menuState = {
         button.onInputOver.add(over, this);
         button.onInputOut.add(out, this);
         button.onInputUp.add(this.startup, this);
+        // game can also start with just pressing enter
+        game.input.keyboard.onUpCallback = function (e) {
+            console.log(e.keyCode);
+            if (e.keyCode == 13){
+                game.state.start('play');
+            }
+        }
 
         var style = { font: "bold 32px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" };
         placeholdertext = game.add.text(50,50,"TURTLE GAMES \nclick button to start", style);
