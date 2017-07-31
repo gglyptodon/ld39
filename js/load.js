@@ -17,6 +17,9 @@ var loadState = {
 
         game.load.spritesheet('tortuga_small', 'assets/img/tortuga_small.png', 68, 47);
 
+        game.load.spritesheet('explosion', 'assets/img/explode.png', 128, 128);
+
+
         //items
         game.load.spritesheet('recharge', 'assets/img/recharge.png', 68, 68);
         game.load.image('ground', 'assets/img/ground.png');

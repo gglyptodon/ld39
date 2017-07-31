@@ -8,6 +8,26 @@ var playState = {
     updatePowerbar: function(){
         this.powerbarState -= 7;
     },
+    explode: function(){
+    
+      explosion = explosions.getFirstExists(false);
+      explosion.reset(player.body.x + player.body.halfWidth, player.body.y + player.body.halfHeight);
+      explosion.body.velocity.y = player.body.velocity.y;
+      explosion.alpha = 0.7;
+      explosion.play('explosion', 30, false, true);
+     //shapeshift(player, choice(shape_choices));
+      player.body.velocity.y = -800;
+      speed = -speed*10;
+      this.powerbarState = 0.1;
+
+  //  blockedlayer.kill(); todo, select blocks under explosion
+    
+    },
+
+    sleep: function (duration){
+        now = new Date().getTime();
+        while(new Date().getTime() < now + duration){ /* do nothing */ } 
+    },
     spawnBox: function(){
         var shuffleArray = function (array) {
             for (var i = array.length - 1; i > 0; i--) {
@@ -18,13 +38,14 @@ var playState = {
             }
             return array;
         }
-        for (var i =0 ; i<1;i++){
-        box1 = chargeboxes.create(420+Math.random() * (900 - 620) +  620, game.world.height - 128, 'recharge');
-        box1.animations.add('all', shuffleArray([0,1, 1, 2, 2, 3]), 10, true);
-        box1.animations.play('all', 0+Math.random() * (6 - 0) + 0, true);
-        box2 = chargeboxes.create(-420+Math.random() * (-900 + 620) -  620, game.world.height - 128, 'recharge');
-        box2.animations.add('all', shuffleArray([0,1, 1, 2, 2, 3]), 10, true);
-        box2.animations.play('all', 0+Math.random() * (6 - 0) + 0, true);
+        for (var i =0 ; i<Math.random()*(1-1)+1;i++){
+            box1 = chargeboxes.create(900, game.world.height - 128, 'recharge');
+            //box1 = chargeboxes.create(20*i+Math.random() * (800 - 60) +  60, game.world.height - 128, 'recharge');
+            box1.animations.add('all', shuffleArray([0,1, 1, 2, 2, 3]), 10, true);
+            box1.animations.play('all', 0+Math.random() * (6 - 0) + 0, true);
+            box2 = chargeboxes.create(-900, game.world.height - 128, 'recharge');
+            box2.animations.add('all', shuffleArray([0,1, 1, 2, 2, 3]), 10, true);
+            box2.animations.play('all', 0+Math.random() * (6 - 0) + 0, true);
 
         }
     },
@@ -55,9 +76,10 @@ var playState = {
                 }
                 break;
             case 2:
+                this.explode();
                 hallo_snd.play();
                 explode_snd.play();
-                this.powerbarState = 0;
+                
 
                 break;
             case 3:
@@ -78,7 +100,16 @@ var playState = {
         battery_snd = game.add.audio('battery_snd');
         explode_snd = game.add.audio('explode_snd');
         hallo_snd = game.add.audio('hallo_snd');
-
+         //  An explosion pool
+    explosions = game.add.group();
+    explosions.enableBody = true;
+    explosions.physicsBodyType = Phaser.Physics.ARCADE;
+    explosions.createMultiple(30, 'explosion');
+    explosions.setAll('anchor.x', 0.5);
+    explosions.setAll('anchor.y', 0.5);
+    explosions.forEach( function(explosion) {
+        explosion.animations.add('explosion');
+    });
 
         score_font = game.add.retroFont('knightHawks', 31, 25, Phaser.RetroFont.TEXT_SET6, 10, 1, 1);
         var gameover_txt = game.add.image(500,  16, gameover_font);
