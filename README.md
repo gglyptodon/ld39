@@ -6,7 +6,12 @@
 
 
 ## Credits
-Sounds from soundbible.com
+
+Made with Phaser http://phaser.io
+
+Background Music: [Fight, run, breath deeply by Komiku](http://freemusicarchive.org/music/Komiku/Mothlight_OST/Komiku_-_Mothlight_OST_-_03_Fight_run_breath_deeply)
+
+Sounds from www.freesfx.co.uk and soundbible.com
 
 http://soundbible.com/789-Cartoon-Walking.html License: Creative Commons Attribution 3.0 | Recorded by Mike Koenig
 
