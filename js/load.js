@@ -23,6 +23,7 @@ var loadState = {
         //items
         game.load.spritesheet('recharge', 'assets/img/recharge.png', 68, 68);
         game.load.image('ground', 'assets/img/ground.png');
+        game.load.image('grass', 'assets/img/grass.png');
         game.load.image("powerbar","assets/img/powerbar.png");
         game.load.image('hurdle', 'assets/img/hurdle.png');
         //music and soundFX TODO

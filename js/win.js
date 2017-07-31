@@ -16,6 +16,13 @@ var winState = {
 
         button = game.add.button(game.world.centerX, game.world.height * .9, 'buttonrestart', actionOnClick, this, 1, 0, 2);
         button.onInputUp.add(this.backtostart, this);
+        game.input.keyboard.onUpCallback = function (e) {
+            console.log(e.keyCode);
+            if (e.keyCode == 13){
+                game.state.start('menu'); // because I'm to stupid to get to scope of function
+            }
+        }
+
     },
 
     backtostart: function(){
