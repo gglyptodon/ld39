@@ -204,10 +204,10 @@ var playState = {
                }
                if (hurdle.x > 1200){
                   hurdle.x = -1200;
-                  console.log('hurdle down');
+                  //console.log('hurdle down');
                }else if (hurdle.x < -1200){
                   hurdle.x = 1200;
-                  console.log('hurdle up');
+                  //console.log('hurdle up');
                }
                // move boxes
                for (cbox in chargeboxes.children){
@@ -226,7 +226,7 @@ var playState = {
 
     },
     update: function(){
-        console.log(speed);
+        //console.log(speed);
         powerbar.width = this.powerbarState;
         powerbar.x = player.x;
         powerbar.y = player.y - 40;
@@ -265,7 +265,7 @@ var playState = {
             var oldhighscore = localStorage.getItem("turtlegames_highscore");
             localStorage.setItem("turtlegames_yourscore", score);
             var newscore = score;
-            console.log(newscore);
+            //console.log(newscore);
             if (oldhighscore && oldhighscore != newscore){
               if (score > +oldhighscore){
 

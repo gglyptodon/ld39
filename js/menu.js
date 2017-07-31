@@ -6,7 +6,7 @@ var menuState = {
     create: function(){
 
         game.stage.backgroundColor = '#555555';
-        console.log("menu")
+        //console.log("menu")
 
         background = game.add.tileSprite(0, 0, 800, 600, 'backgroundmenu');
 
@@ -17,7 +17,7 @@ var menuState = {
         button.onInputUp.add(this.startup, this);
         // game can also start with just pressing enter
         game.input.keyboard.onUpCallback = function (e) {
-            console.log(e.keyCode);
+            //console.log(e.keyCode);
             if (e.keyCode == 13){
                 game.state.start('play');
             }
