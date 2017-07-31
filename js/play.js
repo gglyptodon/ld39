@@ -88,6 +88,9 @@ var playState = {
 
         // setting up input (that I'm not sure if we still use???)
         cursors = game.input.keyboard.createCursorKeys();
+
+        // the grass (essentially as bg)
+        grass = game.add.tileSprite(-800, game.world.height - 75, game.world.width * 3, 15, 'grass');
         // the ground
         platforms = game.add.group();
         platforms.enableBody = true;
@@ -97,7 +100,6 @@ var playState = {
 
         hurdle = platforms.create(1200, game.world.height - 128, 'hurdle');
         hurdle.body.immovable = true;
-
         // charge boxes prep
         chargeboxes = game.add.group();
         chargeboxes.enableBody = true;
@@ -154,7 +156,7 @@ var playState = {
                }
 
                // move ground
-               //ground.x = ground.x + speed;
+               grass.x = grass.x + tomove;
                for (platidx in platforms.children){
                    platform = platforms.children[platidx];
                    platform.x += tomove;
@@ -163,6 +165,10 @@ var playState = {
                // recenter as necessary
                if (ground.x >= 0 | ground.x <= -1600){
                    ground.x = -800;
+
+               }
+               if (grass.x >= 0 | grass.x <= -1600){
+                   grass.x = -800;
 
                }
                if (hurdle.x > 1200){
