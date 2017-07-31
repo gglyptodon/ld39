@@ -9,7 +9,7 @@
 
 Made with Phaser http://phaser.io
 
-Background Music: [Fight, run, breath deeply by Komiku] (http://freemusicarchive.org/music/Komiku/Mothlight_OST/Komiku_-_Mothlight_OST_-_03_Fight_run_breath_deeply)
+Background Music: [Fight, run, breath deeply by Komiku](http://freemusicarchive.org/music/Komiku/Mothlight_OST/Komiku_-_Mothlight_OST_-_03_Fight_run_breath_deeply)
 
 Sounds from www.freesfx.co.uk and soundbible.com
 
