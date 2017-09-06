@@ -3,6 +3,7 @@ var speedmod = 1;
 var canjump = true;
 
 var playState = {
+
     resmd5: [],
     numInputs: 4,
     powerbarState: 100,
@@ -42,7 +43,7 @@ var playState = {
         }
         for (var i =0 ; i<Math.random()*(1-1)+1;i++){
             var arrayToShuffle = [0, 1, 1, 2, 2, 3];
-            //arrayToShuffle = [0,1,3]; //uncomment to test without exploding
+            arrayToShuffle = [0,1,3]; //uncomment to test without exploding
             box1 = chargeboxes.create(900, game.world.height - 128, 'recharge');
             //box1 = chargeboxes.create(20*i+Math.random() * (800 - 60) +  60, game.world.height - 128, 'recharge');
             box1.animations.add('all', shuffleArray(arrayToShuffle), 10, true);
@@ -92,6 +93,7 @@ var playState = {
         }
     },
     create: function(){
+        console.log(game.world.width);
         speed = 15;
         time_font = game.add.retroFont('knightHawks', 31, 25, Phaser.RetroFont.TEXT_SET6, 10, 1, 1);
         gameover_font = game.add.retroFont('knightHawks', 31, 25, Phaser.RetroFont.TEXT_SET6, 10, 1, 1);
@@ -137,7 +139,7 @@ var playState = {
         hurdle.body.immovable = true;
 
         // water pit
-        pit = game.add.sprite(6000 + hurdle.width, game.world.height - ground.height - 9, 'pit');
+        pit = game.add.sprite(1200 + hurdle.width, game.world.height - ground.height - 9, 'pit');
         //pit.enableBody = true;
         game.physics.arcade.enable(pit);
         // charge boxes prep
@@ -184,6 +186,18 @@ var playState = {
 
         // setup movement
         game.input.keyboard.onUpCallback = function (e) {
+            var wrapItem = function(item, frequency = 2, offset = -0.5 ){
+                 // frequency in game widths
+                 gw = game.world.width;
+                 leftstop = gw * offset;
+                 rightstop = gw * (frequency + offset);
+                 console.log('l', leftstop, 'r', rightstop, item);
+                 if (item.x < leftstop){
+                     item.x = rightstop;
+                 }else if(item.x > rightstop){
+                     item.x = leftstop;
+                 }
+            }
 
             var moveleftright = function(e) {
                run_snd.play();
@@ -208,28 +222,36 @@ var playState = {
                }
 
                // recenter as necessary
-               if (ground.x >= 0 | ground.x <= -1600){
-                   ground.x = -800;
+//               if (ground.x >= 0 | ground.x <= -1600){
+                 //ground.x = -800;
+                 //grass.x = -800;
+                 console.log('grass');
+                 wrapItem(grass, frequency=2, offset = 0);
+                 wrapItem(ground, frequency=2, offset = 0);
+                 wrapItem(hurdle, frequency=2, offset = -1);
+                 wrapItem(pit, frequency=4, offset = -1 + (hurdle.width/game.world.width)); 
+//               }
+                 // every thing else recenters only when the ground does, which hopefully makes things snap
 
-               }
-               if (grass.x >= 0 | grass.x <= -1600){
-                   grass.x = -800;
+//               }
+//               if (grass.x >= 0 | grass.x <= -1600){
+//                   grass.x = -800;
 
-               }
-               if (hurdle.x > 1600){
-                  hurdle.x = -800;
-                  console.log('hurdle down');
-               }else if (hurdle.x < -800){
-                  hurdle.x = 1600;
-                  console.log('hurdle up');
-               }
-               if (pit.x > 6400){
-                  pit.x = -800;
-                  hurdle.x = -800;
-               }else if (pit.x < -800){
-                  pit.x = 6400;
-                  hurdle.x = 1600;
-               }
+  //             }
+//                 if (hurdle.x > 1600){
+//                    hurdle.x = -800;
+//                    console.log('hurdle down');
+//                 }else if (hurdle.x < -800){
+//                    hurdle.x = 1600;
+//                    console.log('hurdle up');
+//                 }
+//                 if (pit.x > 6400){
+//                     pit.x = -800;
+//                 }else if (pit.x < -800){
+//                     pit.x = 6400;
+//                 }
+               
+               
                // move boxes
                for (cbox in chargeboxes.children){
                    chargebox = chargeboxes.children[cbox];
