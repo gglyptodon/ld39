@@ -26,6 +26,7 @@ var loadState = {
         game.load.image('grass', 'assets/img/grass.png');
         game.load.image("powerbar","assets/img/powerbar.png");
         game.load.image('hurdle', 'assets/img/hurdle.png');
+        game.load.image('pit','assets/img/pit.png');
         //music and soundFX TODO
         game.load.audio('bgmusic', ['assets/sounds/bgmusic.mp3']);
         game.load.audio('recharge_snd', ['assets/sounds/recharge_snd.ogg']);

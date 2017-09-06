@@ -1,4 +1,6 @@
 var speed;
+var speedmod = 1;
+var canjump = true;
 
 var playState = {
     resmd5: [],
@@ -39,12 +41,14 @@ var playState = {
             return array;
         }
         for (var i =0 ; i<Math.random()*(1-1)+1;i++){
+            var arrayToShuffle = [0, 1, 1, 2, 2, 3];
+            //arrayToShuffle = [0,1,3]; //uncomment to test without exploding
             box1 = chargeboxes.create(900, game.world.height - 128, 'recharge');
             //box1 = chargeboxes.create(20*i+Math.random() * (800 - 60) +  60, game.world.height - 128, 'recharge');
-            box1.animations.add('all', shuffleArray([0,1, 1, 2, 2, 3]), 10, true);
+            box1.animations.add('all', shuffleArray(arrayToShuffle), 10, true);
             box1.animations.play('all', 0+Math.random() * (6 - 0) + 0, true);
             box2 = chargeboxes.create(-900, game.world.height - 128, 'recharge');
-            box2.animations.add('all', shuffleArray([0,1, 1, 2, 2, 3]), 10, true);
+            box2.animations.add('all', shuffleArray(arrayToShuffle), 10, true);
             box2.animations.play('all', 0+Math.random() * (6 - 0) + 0, true);
 
         }
@@ -131,6 +135,11 @@ var playState = {
 
         hurdle = platforms.create(1200, game.world.height - 128, 'hurdle');
         hurdle.body.immovable = true;
+
+        // water pit
+        pit = game.add.sprite(6000 + hurdle.width, game.world.height - ground.height - 9, 'pit');
+        //pit.enableBody = true;
+        game.physics.arcade.enable(pit);
         // charge boxes prep
         chargeboxes = game.add.group();
         chargeboxes.enableBody = true;
@@ -179,6 +188,8 @@ var playState = {
             var moveleftright = function(e) {
                run_snd.play();
                tomove = speed;
+               tomove *= speedmod;
+
                if ([39,68].indexOf(e.keyCode) >= 0){
                    tomove *= -1;
                    player.animations.play('right');
@@ -186,8 +197,11 @@ var playState = {
                    player.animations.play('left');
                }
 
-               // move ground
+               // move ground 
+               // todo, group for non-interacting movables
                grass.x = grass.x + tomove;
+               pit.x = pit.x + tomove;
+
                for (platidx in platforms.children){
                    platform = platforms.children[platidx];
                    platform.x += tomove;
@@ -202,12 +216,19 @@ var playState = {
                    grass.x = -800;
 
                }
-               if (hurdle.x > 1200){
-                  hurdle.x = -1200;
+               if (hurdle.x > 1600){
+                  hurdle.x = -800;
                   console.log('hurdle down');
-               }else if (hurdle.x < -1200){
-                  hurdle.x = 1200;
+               }else if (hurdle.x < -800){
+                  hurdle.x = 1600;
                   console.log('hurdle up');
+               }
+               if (pit.x > 6400){
+                  pit.x = -800;
+                  hurdle.x = -800;
+               }else if (pit.x < -800){
+                  pit.x = 6400;
+                  hurdle.x = 1600;
                }
                // move boxes
                for (cbox in chargeboxes.children){
@@ -225,8 +246,19 @@ var playState = {
         };
 
     },
+    slow: function(){
+      console.log('slow');
+      //canjump = false; // entertaining idea if the 
+      speedmod = 0.4;
+      var outside2left = player.body.x < pit.x;
+      var outside2right = (player.body.x + player.body.width) > (pit.x + pit.width);
+      if (outside2left || outside2right){
+      }else{
+        canjump = false;
+      }
+    },
     update: function(){
-        console.log(speed);
+        //console.log(speed);
         powerbar.width = this.powerbarState;
         powerbar.x = player.x;
         powerbar.y = player.y - 40;
@@ -241,14 +273,16 @@ var playState = {
         game.physics.arcade.overlap(player, platforms, this.stopPlayer, null, this);
 
         game.physics.arcade.overlap(player, chargeboxes, this.collectItem, null, this);
-
+        speedmod = 1;
+        canjump = true;
+        game.physics.arcade.overlap(player, pit, this.slow, null, this);
     
        
         //  Allow the player to jump if they are touching the ground.
         wdown = game.input.keyboard.isDown(Phaser.Keyboard.W);
         spacedown = game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR);
         wanna_jump = (wdown | spacedown | cursors.up.isDown);
-        if (wanna_jump && player.body.touching.down && hitPlatform)
+        if (wanna_jump && player.body.touching.down && hitPlatform && canjump)
         {
             player.body.velocity.y = -350;
             boing_snd.play();
